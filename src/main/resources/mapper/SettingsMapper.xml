@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bawei.cms.dao.SettingsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bawei.cms.domain.Settings">
+        <id column="id" property="id" />
+        <result column="site_domain" property="siteDomain" />
+        <result column="site_name" property="siteName" />
+        <result column="article_list_size" property="articleListSize" />
+        <result column="slide_size" property="slideSize" />
+        <result column="admin_username" property="adminUsername" />
+        <result column="admin_password" property="adminPassword" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, site_domain, site_name, article_list_size, slide_size, admin_username, admin_password
+    </sql>
+
+</mapper>
