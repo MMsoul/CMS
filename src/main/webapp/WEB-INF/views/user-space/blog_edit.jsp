@@ -13,6 +13,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/bootstrap.min.css"/>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+   <!--  <link href="libs/summernote/summernote.css" rel="stylesheet"> -->
     <link rel="stylesheet" type="text/css" href="/css/cms.css"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -30,7 +31,7 @@
 	<!-- 横幅 -->
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 my_banner">
+			<div class="col-md-12 my_banner">
 			</div>
 		</div>
 	</div>
@@ -46,8 +47,10 @@
 				  <div class="panel-body">
 				    	<h1>发布博客</h1>
 				    	<hr/>
-				    	
-				    	<form:form modelAttribute="blog" action="/my/blog/save" enctype="multipart/form-data" method="post" >
+				    	<div class="card">
+					  	<div class="card-body">
+				    	<form:form modelAttribute="blog" action="/article/edit" 
+				    		enctype="multipart/form-data" method="post" >
 				    	<form:hidden path="id"/>
 				    	<p align="center" class="red"><form:errors path="id"/> </p>
 				    	<p>
@@ -68,7 +71,7 @@
 				    	<p>
 				    		<form:select path="category.id" class="form-control">
 				    			<option value="">选择分类</option>
-				    			<form:options items="${__CATEGORIES__}" itemLabel="name" itemValue="id"/>
+				    			<form:options items="${__CATEGORIES__}"  itemLabel="name" itemValue="id"/>
 				    		</form:select>
 				    		<span class="red"><form:errors path="category"/></span>
 				    	</p>
@@ -86,6 +89,8 @@
 				    	</p>
 				    	
 				    	</form:form>
+				    	</div>
+				    	</div>
 				  </div>
 				</div>
 				
@@ -96,6 +101,7 @@
 	<jsp:include page="/WEB-INF/inc/footer.jsp"/>
 	
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+	<!-- <script type="text/javascript" src="libs/summernote/summernote.js"></script> -->
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#content").summernote({

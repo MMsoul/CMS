@@ -1,10 +1,15 @@
 package com.bawei.cms.service.impl;
 
-import com.bawei.cms.domain.Article;
-import com.bawei.cms.dao.ArticleMapper;
-import com.bawei.cms.service.IArticleService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bawei.cms.dao.ArticleMapper;
+import com.bawei.cms.domain.Article;
+import com.bawei.cms.service.IArticleService;
+import com.bawei.cms.vo.ArticleVo;
+import com.bawei.common.utils.AssertUtil;
 
 /**
  * <p>
@@ -16,5 +21,24 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements IArticleService {
+
+	@Override
+	public List<ArticleVo> listArticlesByUserId(Integer userId) {
+		
+		AssertUtil.assertNotNull(userId, "用户ID不能为空");
+		
+		List<ArticleVo> articles = baseMapper.listArticleVoByUserId(userId);
+
+		return articles;
+	}
+	
+	@Override
+		public ArticleVo findArticleById(Integer id) {
+			AssertUtil.assertNotNull(id,"文章ID不能为空");
+			
+			ArticleVo articleVo = baseMapper.findArticleVoById(id);
+			
+			return articleVo;
+		}
 
 }

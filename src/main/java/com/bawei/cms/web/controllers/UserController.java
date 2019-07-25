@@ -1,9 +1,10 @@
 package com.bawei.cms.web.controllers;
 
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +12,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bawei.cms.domain.User;
+import com.bawei.cms.enums.Gender;
 import com.bawei.cms.service.IUserService;
 import com.bawei.cms.web.forms.UserForm;
+import com.bawei.cms.web.forms.UserProfileForm;
 import com.bawei.common.utils.AssertUtil;
 import com.bawei.common.utils.AssertionException;
 import com.bawei.web.Constant;
@@ -36,6 +38,13 @@ public class UserController {
 	
 	@Autowired
 	private IUserService userService;
+	
+	@GetMapping("/home")
+	public ModelAndView showUserHomeView() {
+		ModelAndView mav = new ModelAndView("user-space/home");
+		
+		return mav;
+	}
 	
 	@GetMapping("/reg")
 	public ModelAndView showUserRegisteryView() {
@@ -103,6 +112,77 @@ public class UserController {
 			mav.addObject("message", e.getMessage());
 			mav.setViewName("passport/login");
 		}
+		
+		return mav;
+	}
+	
+	@GetMapping("/profile")
+	public ModelAndView showUserProfilePage(HttpSession session) {
+		ModelAndView mav = new ModelAndView("user-space/profile");
+		
+		try {
+			User currentUser = (User) session.getAttribute(Constant.LOGIN_USER);
+			
+			User user = userService.getUnLockedUser(currentUser.getId());
+			
+			UserProfileForm userForm = new UserProfileForm();
+			
+			userForm.setId(user.getId());
+			userForm.setUsername(user.getUsername());
+			userForm.setNickname(user.getNickname());
+			userForm.setBirthday(user.getBirthday());
+			userForm.setGender(user.getGender() == 1?Gender.MALE:Gender.FAMALE);
+			
+			mav.addObject("userForm", userForm);
+		} catch (Exception e) {
+			mav.addObject("message", e.getMessage());
+			mav.setViewName("redirect:/user/login");
+		}
+		
+		return mav;
+	}
+	
+	@PostMapping("/profile")
+	public ModelAndView updateUserProfile(@ModelAttribute("userForm") UserProfileForm userForm) {
+		ModelAndView mav = new ModelAndView();
+		
+		try {
+			AssertUtil.assertHasLength(userForm.getUsername(), "用户名不能为空");
+			AssertUtil.assertHasLength(userForm.getNickname(), "昵称不能为空");
+			
+			User user = new User();
+			user.setId(userForm.getId());
+			user.setBirthday(userForm.getBirthday());
+			user.setGender(userForm.getGender() == Gender.MALE ? 1:0);
+			user.setNickname(userForm.getNickname());
+			user.setUpdated(new Date());
+			
+			boolean result = userService.saveOrUpdate(user);
+			
+			AssertUtil.assertTrue(result, "用户信息保存失败");
+		} catch (Exception e) {
+			mav.addObject("message", e.getMessage());
+		}
+		
+		
+		// 无论怎样的结果，都回到个设置页面，同时回显表单个人信息。
+		mav.addObject("userForm", userForm);
+		mav.setViewName("user-space/profile");
+		return mav;
+	}
+	
+	@GetMapping("/profile/avatar")
+	public ModelAndView showUserAvatorPage(HttpSession session) {
+		ModelAndView mav = new ModelAndView("user-space/avatar");
+		User user = (User) session.getAttribute(Constant.LOGIN_USER);
+		return mav;
+	}
+	
+	@GetMapping("/comments")
+	public ModelAndView showUserComments(HttpSession session) {
+		ModelAndView mav = new ModelAndView("user-space/comments");
+		
+		
 		
 		return mav;
 	}

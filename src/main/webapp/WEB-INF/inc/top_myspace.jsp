@@ -35,11 +35,11 @@
       			<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${_LOGIN_USER_.nickname}<span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="/my/home">个人主页</a></li>
-		            <li><a href="/my/profile">个人设置</a></li>
-		            <li><a href="/my/blogs">我的博客</a></li>
+		            <li><a href="/user/home">个人主页</a></li>
+		            <li><a href="/user/profile">个人设置</a></li>
+		            <li><a href="/user/blogs">我的博客</a></li>
 		            <li role="separator" class="divider"></li>
-		            <li><a href="/logout">退出</a></li>
+		            <li><a href="/user/logout">退出</a></li>
 		          </ul>
 		        </li>
       		</c:when>

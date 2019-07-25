@@ -1,6 +1,10 @@
 package com.bawei.cms.dao;
 
 import com.bawei.cms.domain.Article;
+import com.bawei.cms.vo.ArticleVo;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -12,5 +16,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2019-07-21
  */
 public interface ArticleMapper extends BaseMapper<Article> {
-
+	List<ArticleVo> listArticleVoByUserId(Integer userid);
+	
+	ArticleVo findArticleVoById(Integer id);
 }

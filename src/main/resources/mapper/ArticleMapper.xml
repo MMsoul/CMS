@@ -24,5 +24,62 @@
     <sql id="Base_Column_List">
         id, title, summary, content, picture, channel_id, category_id, user_id, hits, hot, status, deleted, created, updated
     </sql>
+    
+    <select id="listArticleVoByUserId" resultMap="ArticleVoResultMap">
+    	SELECT 
+    		cms_article.id as id,
+    		cms_article.title as title,
+    		cms_article.summary as summary,
+    		cms_article.content as content,
+    		cms_article.category_id as category_id,
+    		cms_article.picture as picture,
+    		cms_article.status as status,
+    		cms_article.hits as hits,
+    		cms_article.hot as hot,
+    		cms_article.created as created,
+    		cms_article.updated as updated,
+    		cms_category.id as cateid,
+    		cms_category.name as cat_name
+    	FROM cms_article
+    	JOIN cms_category ON cms_article.category_id=cms_category.id
+    	WHERE cms_article.user_id=#{userid} AND cms_article.deleted=1
+    </select>
+    
+    <resultMap type="com.bawei.cms.vo.ArticleVo" id="ArticleVoResultMap">
+    	<id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="summary" property="summary" />
+        <result column="content" property="content" />
+        <result column="category_id" property="categoryId"/>
+        <result column="picture" property="picture" />
+        <result column="hits" property="hits" />
+        <result column="hot" property="hot" />
+        <result column="status" property="status" />
+        <result column="created" property="created" />
+        <result column="updated" property="updated" />
+        <association property="category">
+        	<id column="cateid" property="id"/>
+        	<result column="cat_name" property="name"/>
+        </association>
+    </resultMap>
+    
+    <select id="findArticleVoById" resultMap = "ArticleVoResultMap">
+    	SELECT 
+    		cms_article.id as id,
+    		cms_article.title as title,
+    		cms_article.summary as summary,
+    		cms_article.content as content,
+    		cms_article.picture as picture,
+    		cms_article.status as status,
+    		cms_article.hits as hits,
+    		cms_article.hot as hot,
+    		cms_article.created as created,
+    		cms_article.updated as updated,
+    		cms_category.id as cateid,
+    		cms_category.name as cat_name
+    	FROM cms_article
+    	JOIN cms_category ON cms_article.category_id=cms_category.id
+    	WHERE cms_article.id=#{id} 
+    </select>
 
 </mapper>

@@ -25,4 +25,6 @@ public interface IUserService extends IService<User> {
 
 	User login(String username, String password);
 
+	User getUnLockedUser(Integer id);
+
 }

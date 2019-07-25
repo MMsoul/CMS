@@ -7,6 +7,7 @@ import com.bawei.cms.service.IUserService;
 import com.bawei.common.utils.AssertUtil;
 import com.bawei.web.Constant;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.injector.methods.SelectOne;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import java.util.Date;
@@ -55,7 +56,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 		user.setPassword(DigestUtils.md5DigestAsHex(base.getBytes()));
 		
 		user.setNickname(username);
-		user.setGender(gender==Gender.FAMALE?1:0);
+		user.setGender(gender==Gender.MALE?1:0);
 		user.setBirthday(null);
 		user.setLocked(false);
 		user.setCreated(new Date());
@@ -96,6 +97,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 		result = new User();
 		
 		BeanUtils.copyProperties(user, result, "password");
+		
+		return result;
+	}
+
+	@Override
+	public User getUnLockedUser(Integer id) {
+		QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+		
+		queryWrapper.eq("id", id).eq("locked", 0);
+		
+		User user = this.getOne(queryWrapper);
+		
+		AssertUtil.assertNotNull(user, "用户被锁定");
+		
+		User result = new User();
+		BeanUtils.copyProperties(user, result);
 		
 		return result;
 	}

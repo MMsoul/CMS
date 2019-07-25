@@ -6,4 +6,5 @@
 	</div>
 </div>
 	<script type="text/javascript" src="/libs/jquery/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="/libs/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script> -->
 	<script type="text/javascript" src="/libs/bootstrap/js/bootstrap.min.js"></script>

@@ -15,7 +15,7 @@ CREATE TABLE cms_user (
 	nickname VARCHAR(50) NOT NULL COMMENT '用户昵称',
 	birthday DATE NULL COMMENT '用户生日',
 	gender INT NULL COMMENT '性别:1-男,0-女',
-	locked TINYINT(1) NOT NULL DEFAULT '0' COMMENT '是否禁止:1-未禁止，0-禁止',
+	locked TINYINT(1) NOT NULL DEFAULT '1' COMMENT '是否禁止:0-未禁止，1-禁止',
 	created DATETIME NOT NULL COMMENT '创建时间',
 	updated DATETIME NOT NULL COMMENT '修改时间'
 )
@@ -120,3 +120,15 @@ CREATE TABLE cms_settings(
 CHARACTER SET utf8
 ENGINE InnoDB
 COMMENT '系统配置表';
+
+DROP TABLE IF EXISTS cms_comments;
+CREATE TABLE cms_comments(
+	id INT PRIMARY KEY NOT NULL DEFAULT '1' COMMENT '文章评论ID',
+	articleid INT NOT NULL COMMENT '文章标识',
+	userid INT NULL COMMENT '评论用户ID',
+	content VARCHAR(200) NOT NULL COMMENT '评论内容摘要',
+	created DATETIME NOT NULL COMMENT '评论时间'
+)
+CHARACTER SET utf8
+ENGINE InnoDB
+COMMENT '文章评论表';

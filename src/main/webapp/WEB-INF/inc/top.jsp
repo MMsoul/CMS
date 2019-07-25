@@ -19,7 +19,7 @@
    	<%-- 登录显示用户菜单 --%>
     <c:when test="${_LOGIN_USER_  != null}">
    	 <li class="nav-item">
-   		<a class="nav-link" href="/my/home">
+   		<a class="nav-link" href="/user/home">
 		<img alt="" src="/images/default_avatar.png" style="max-height: 2.5rem" class="rounded img-fluid">
    		</a>
    	 </li>
@@ -29,11 +29,11 @@
 		    <c:out value="${_LOGIN_USER_.nickname}" default="CMS-User"/>
 		  </a>
 		  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-		    <a class="dropdown-item" href="/my/home">个人主页</a>
-		    <a class="dropdown-item" href="/my/profile">个人设置</a>
-		    <a class="dropdown-item" href="/my/articles">我的文章</a>
+		    <a class="dropdown-item" href="/user/home">个人主页</a>
+		    <a class="dropdown-item" href="/user/profile">个人设置</a>
+		    <a class="dropdown-item" href="/user/articles">我的文章</a>
 		    <div class="dropdown-divider"></div>
-		    <a class="dropdown-item" href="/logout">退出</a>
+		    <a class="dropdown-item" href="/user/logout">退出</a>
 		  </div>
 		</div>
    	 </li>
