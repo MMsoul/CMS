@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bawei.cms.domain.Article;
 import com.bawei.cms.domain.Category;
+import com.bawei.cms.domain.Comments;
 import com.bawei.cms.domain.User;
 import com.bawei.cms.service.IArticleService;
 import com.bawei.cms.service.ICategoryService;
@@ -49,6 +51,23 @@ public class ArticleController {
 	
 	@Autowired
 	private IArticleService articleService;
+	
+	@GetMapping("/{articleId}")
+	public ModelAndView showArticle(@PathVariable("articleId") Integer articleId) {
+		ModelAndView mav = new ModelAndView("blog");
+		
+		ArticleVo blog = articleService.findArticleAuthorById(articleId);
+		System.out.println(blog);
+		Comments comments = null;
+		
+		Article hitBlogs = null;
+		
+		mav.addObject("blog", blog);
+		mav.addObject("comments", comments);
+		mav.addObject("hitBlogs",hitBlogs);
+		
+		return mav;
+	}
 	
 	@GetMapping("/edit")
 	public ModelAndView showArticleEditPage(@RequestParam(value = "id",required = false) Integer id) {

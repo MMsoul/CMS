@@ -108,6 +108,7 @@
 	<!-- <script type="text/javascript" src="libs/summernote/summernote.js"></script> -->
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
 			$("#content").summernote({
 				placeholder:'博客内容',
 				height:300
@@ -149,6 +150,8 @@
 				$('#title').val(title);
 				return true;
 			})
+			
+			
 			
 		});
 	</script>

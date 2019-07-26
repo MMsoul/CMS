@@ -48,4 +48,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 		return articles;
 	}
 
+	@Override
+	public ArticleVo findArticleAuthorById(Integer articleId) {
+		AssertUtil.assertNotNull(articleId,"文章ID不能为空");
+		ArticleVo articleVo = baseMapper.findArticleVoAuthorById(articleId);
+		return articleVo;
+	}
+
 }
