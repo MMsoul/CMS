@@ -97,24 +97,25 @@ public class ArticleController {
 			article.setSummary(blog.getSummary());
 			article.setCategoryId(blog.getCategory().getId());
 			
-			// 获得当前应用部署在服务器上的根路径，它是一个文件系统绝对路径
-			String picRealDir = request.getServletContext().getRealPath("/")+Constant.UPLOAD_DIR;
-			
-			// 上传工作
-			String fileOriginalName = file.getOriginalFilename();
-			String fileSuffix = fileOriginalName.substring(fileOriginalName.lastIndexOf("."));
-			String newFileName = ""+ System.currentTimeMillis() + (Math.random()*1000+1) + fileSuffix;
-			
-			file.transferTo(new File(picRealDir+"/"+newFileName));
-			
-			article.setPicture(Constant.UPLOAD_DIR + "/" + newFileName);
+			if (file.getSize() != 0) {
+				// 获得当前应用部署在服务器上的根路径，它是一个文件系统绝对路径
+				String picRealDir = request.getServletContext().getRealPath("/")+Constant.UPLOAD_DIR;
+				
+				// 上传工作
+				String fileOriginalName = file.getOriginalFilename();
+				String fileSuffix = fileOriginalName.substring(fileOriginalName.lastIndexOf("."));
+				String newFileName = ""+ System.currentTimeMillis() + (Math.random()*1000+1) + fileSuffix;
+				
+				file.transferTo(new File(picRealDir+"/"+newFileName));
+				article.setPicture(Constant.UPLOAD_DIR + "/" + newFileName);
+			}
 			
 			article.setUserId(loginedUser.getId());
 			
 			article.setCreated(new Date());
 			article.setUpdated(article.getCreated());
 			
-			boolean result = articleService.save(article);
+			boolean result = articleService.saveOrUpdate(article);
 			
 			AssertUtil.assertTrue(result, "文章发布失败");
 			

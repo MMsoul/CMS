@@ -33,12 +33,17 @@
 			<div class="col-md-2 ">	
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item list-group-item-action text-center"><a class="channel active" href="/">热门</a></li>
+					<!-- 遍历_CHANNELS_AND_CATEGORIES_列表，从中取出频道及其分类的名称 -->
 					<c:forEach items="${_CHANNELS_AND_CATEGORIES_}" var="c">
-					<li class="list-group-item list-group-item-action text-center"><a class="channel" href="/?channel=${c.key.id}">${c.key.name}</a></li>
+						<c:forEach items="${c}" var="channel">
+						<li class="list-group-item list-group-item-action text-center">
+							<!-- 将频道的名称作为超级连接，当单击它时，会再次请求主页的显示，同时，向后台传递频道的ID -->
+							<a class="channel" href="/?channel=${channel.key.id}">${channel.key.name}</a>
+						</li>
+						</c:forEach>
 					</c:forEach>
 				</ul>
 			</div>
-			
 			<!-- 主体区 -->
 			<div class="col-md-7 split min_h_500">
 				
@@ -46,15 +51,17 @@
 				<c:choose>
 					<c:when test="${channel != null}">
 						<ul class="nav nav-tabs">
-						<c:forEach items="${_CHANNELS_AND_CATEGORIES_}" var="c">
-						<c:if test="${c.key eq channel}">
-							<li class="nav-item"><a>  </a></li>
-							<c:forEach items="${c.value}" var="cate">
-							<li class="nav-item">
-							    <a class="nav-link ${cate.id==category ? 'active' : ''}" href="/?channel=${c.key.id}&category=${cate.id}">${cate.name}</a>
-							</li>
+						<c:forEach items="${_CHANNELS_AND_CATEGORIES_}" var="channels">
+							<c:forEach items="${channels }" var="c">
+							<c:if test="${c.key.id eq channel.id}">
+								<li class="nav-item"><a>  </a></li>
+								<c:forEach items="${c.value}" var="cate">
+								<li class="nav-item">
+								    <a class="nav-link ${cate.id==category ? 'active' : ''}" href="/?channel=${c.key.id}&category=${cate.id}">${cate.name}</a>
+								</li>
+								</c:forEach>
+							</c:if>
 							</c:forEach>
-						</c:if>
 						</c:forEach>
 					</ul>
 					</c:when>
@@ -99,7 +106,7 @@
 						<div class="media">
 						  <div class="media-left">
 						    <a href="#">
-						      <img class="media-object" src="${article.picture}" width="120" alt="${article.title }">
+						      <img class="media-object" src="${article.picture}" width="120" >
 						    </a>
 						  </div>
 						  <div class="media-body">
@@ -115,7 +122,7 @@
 					</c:when>
 					<c:otherwise>
 						  <div>
-						    <h3><a class="article_title" href="/blog/${article.id}">${article.title }</a></h3>
+						    <h3><a class="article_title" href="/article/${article.id}">${article.title }</a></h3>
 						    <p>${article.summary}</p>
 						    <p class="blog_item_footer">
 						    	<span class="glyphicon glyphicon-user" title="作者"></span>作者：${article.author.nickname}&nbsp;&nbsp;&nbsp;

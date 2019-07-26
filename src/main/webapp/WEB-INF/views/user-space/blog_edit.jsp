@@ -55,7 +55,11 @@
 				    	<p align="center" class="red"><form:errors path="id"/> </p>
 				    	<p>
 				    		<form:input path="title" class="form-control" placeholder="博客标题"/>
-				    		<span class="red"><form:errors path="title"/></span>
+				    		<span class="red">
+				    		<button id="bTitle" type="button" class="btn btn-default">B</button>
+				    		<button id="iTitle" type="button" class="btn btn-default">I</button>
+				    		<button id="rTitle" type="button" class="btn btn-default">R</button>
+				    		<form:errors path="title"/></span>
 				    	</p>
 				    	
 				    	<p>
@@ -108,6 +112,44 @@
 				placeholder:'博客内容',
 				height:300
 			});
+			
+			$('#title').data("color",$('#title').css('color'));
+			
+			$("#bTitle").click(function(){
+				var font_weight = $("#title").css("font-weight");
+				if (font_weight == 400) {
+					$("#title").css("font-weight","bold");
+				} else {
+					$("#title").css("font-weight","normal");
+				}
+			})
+			$("#iTitle").click(function(){
+				var font_style = $("#title").css("font-style");
+				if (font_style == "italic") {
+					$("#title").css("font-style","normal");
+				} else {
+					$("#title").css("font-style","italic");
+				}
+			})
+			$("#rTitle").click(function(){
+				var color = $("#title").css("color");
+				if (color == "rgb(255, 0, 0)") {
+					$("#title").css("color",$('#title').data("color"));
+				} else {
+					$("#title").css("color","rgb(255, 0, 0)");
+				}
+			})
+			
+			$('#blog').submit(function(){
+				var title = $("#title").val();
+				var font_weight = $("#title").css("font-weight");
+				var font_style = $("#title").css("font-style");
+				var color = $("#title").css("color");
+				title = '<span style="font-weight:'+font_weight+'; font-style:'+font_style+'; color:'+color+'">'+title+'</span>'
+				$('#title').val(title);
+				return true;
+			})
+			
 		});
 	</script>
   </body>

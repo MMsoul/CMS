@@ -41,4 +41,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 			return articleVo;
 		}
 
+	@Override
+	public List<ArticleVo> listArticlesByCateId(Integer categoryId) {
+		AssertUtil.assertNotNull(categoryId,"类别ID不能为空");
+		List<ArticleVo> articles = baseMapper.findArticleVoByCateId(categoryId);
+		return articles;
+	}
+
 }
