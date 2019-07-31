@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bawei.cms.dao.CommentsMapper">
+<mapper namespace="com.huangwei.cms.dao.CommentsMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bawei.cms.domain.Comments">
+    <resultMap id="BaseResultMap" type="com.huangwei.cms.domain.Comments">
         <id column="id" property="id" />
         <result column="articleid" property="articleid" />
         <result column="userid" property="userid" />

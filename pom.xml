@@ -16,8 +16,8 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.bawei</groupId>
-			<artifactId>bawei-common</artifactId>
+			<groupId>com.huangwei</groupId>
+			<artifactId>huangwei-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

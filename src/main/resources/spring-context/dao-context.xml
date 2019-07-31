@@ -54,8 +54,8 @@
 		<property name="mapperLocations"
 			value="classpath:mapper/*.xml" />
 		<property name="typeAliasesPackage"
-			value="com.bawei.cms.domain" />
-		<property name="typeEnumsPackage" value="com.bawei.cms.enums" />
+			value="com.huangwei.cms.domain" />
+		<property name="typeEnumsPackage" value="com.huangwei.cms.enums" />
 		<property name="plugins">
 			<array>
 				<!-- 分页插件配置 -->
@@ -68,7 +68,7 @@
 
 	<!-- MyBatis 动态扫描 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.bawei.cms.dao" />
+		<property name="basePackage" value="com.huangwei.cms.dao" />
 	</bean>
 
 	<!-- 配置事务管理 -->

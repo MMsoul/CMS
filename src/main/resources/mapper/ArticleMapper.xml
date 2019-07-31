@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bawei.cms.dao.ArticleMapper">
+<mapper namespace="com.huangwei.cms.dao.ArticleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bawei.cms.domain.Article">
+    <resultMap id="BaseResultMap" type="com.huangwei.cms.domain.Article">
         <id column="id" property="id" />
         <result column="title" property="title" />
         <result column="summary" property="summary" />
@@ -45,7 +45,7 @@
     	WHERE cms_article.user_id=#{userid} AND cms_article.deleted=1
     </select>
     
-    <resultMap type="com.bawei.cms.vo.ArticleVo" id="ArticleVoResultMap">
+    <resultMap type="com.huangwei.cms.vo.ArticleVo" id="ArticleVoResultMap">
     	<id column="id" property="id" />
         <result column="title" property="title" />
         <result column="summary" property="summary" />
@@ -82,7 +82,7 @@
     	WHERE cms_article.id=#{id} 
     </select>
     
-    <resultMap type="com.bawei.cms.vo.ArticleVo" id="ArticleVoUserResultMap">
+    <resultMap type="com.huangwei.cms.vo.ArticleVo" id="ArticleVoUserResultMap">
     	<id column="id" property="id" />
         <result column="title" property="title" />
         <result column="summary" property="summary" />
@@ -94,6 +94,7 @@
         <result column="status" property="status" />
         <result column="created" property="created" />
         <result column="updated" property="updated" />
+        <result column="type" property="type"/>
         <association property="author">
         	<id column="userid" property="id"/>
         	<result column="username" property="username"/>
@@ -112,8 +113,10 @@
     		cms_article.hot as hot,
     		cms_article.created as created,
     		cms_article.updated as updated,
+    		cms_article.type as type,
     		cms_user.id as userid,
-    		cms_user.username as username
+    		cms_user.username as username,
+    		cms_user.nickname as nickname
     	FROM cms_article
     	JOIN cms_user ON cms_article.user_id=cms_user.id
     	WHERE cms_article.category_id=#{categoryId}
@@ -131,6 +134,7 @@
     		cms_article.hot as hot,
     		cms_article.created as created,
     		cms_article.updated as updated,
+    		cms_article.type as type,
     		cms_user.id as userid,
     		cms_user.username as username,
     		cms_user.nickname as nickname
