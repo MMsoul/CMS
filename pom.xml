@@ -10,7 +10,7 @@
 	<description>CMS内容管理系统</description>
 
 	<properties>
-		<spring.version>4.3.24.RELEASE</spring.version>
+		<spring.version>5.2.20.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
